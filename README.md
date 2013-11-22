@@ -1,7 +1,7 @@
 CoroutineIO
 ===========
 
-Coroutine based generic stream socket server written in PHP5.5.
+Fast socket server implementation using *Generator*
 This project is heavily inspired by @nikic's [great post][1].
 
 Requirements
@@ -94,7 +94,6 @@ class HttpServer extends Server
 
 ``` php
 <?php
-
 
 namespace CoroutineIO\Example;
 
