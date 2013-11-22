@@ -20,7 +20,7 @@ class HttpServer extends Server
      *
      * @return resource
      */
-    public function createSocket($address = 'localhost:8000')
+    public function createSocket($address = '127.0.0.1:8001')
     {
         $socket = @stream_socket_server('tcp://' . $address, $no, $str);
 

@@ -2,10 +2,8 @@
 
 namespace CoroutineIO\Server;
 
-use CoroutineIO\IO\StreamReader;
-use CoroutineIO\IO\StreamWriter;
+use CoroutineIO\IO\StreamSocket;
 use CoroutineIO\Socket\ProtectedSocket;
-use CoroutineIO\Socket\Socket;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
@@ -14,20 +12,17 @@ abstract class AbstractHandler implements HandlerInterface
 {
 
     /**
-     * @param Socket $socket
+     * @param \CoroutineIO\IO\StreamSocket $socket
      *
      * @return \Generator
      */
-    public function handleClient(Socket $socket)
+    public function handleClient(StreamSocket $socket)
     {
-        $reader = new StreamReader($socket);
-        $data   = (yield $reader->read());
+        $data = (yield $socket->read(8048));
 
         $response = $this->handleRequest($data, new ProtectedSocket($socket));
 
-        $writer = new StreamWriter($socket);
-
-        yield $writer->write($response);
+        yield $socket->write($response);
         yield $socket->close();
     }
 

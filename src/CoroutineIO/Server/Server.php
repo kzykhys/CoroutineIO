@@ -3,10 +3,8 @@
 namespace CoroutineIO\Server;
 
 use CoroutineIO\Exception\Exception;
-use CoroutineIO\IO\StreamReader;
+use CoroutineIO\IO\StreamSocket;
 use CoroutineIO\Scheduler\SystemCall;
-use CoroutineIO\Scheduler\Value;
-use CoroutineIO\Socket\Socket;
 use CoroutineIO\Socket\SocketScheduler;
 
 /**
@@ -33,7 +31,7 @@ abstract class Server
      *
      * @param string $address
      */
-    public function run($address = 'localhost:8000')
+    public function run($address = '127.0.0.1:8000')
     {
         $scheduler = new SocketScheduler();
         $scheduler->add($this->listen($address));
@@ -47,11 +45,12 @@ abstract class Server
      */
     public function listen($address)
     {
-        $socket = new Socket($this->createSocket($address));
+        $socket = new StreamSocket($this->createSocket($address));
+        $socket->block(false);
 
         while (true) {
             yield SystemCall::create(
-                $this->handler->handleClient(yield (new Value($socket->accept())))
+                $this->handler->handleClient(yield $socket->accept())
             );
         }
     }

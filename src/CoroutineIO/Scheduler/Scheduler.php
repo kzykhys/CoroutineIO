@@ -110,6 +110,7 @@ class Scheduler
             if (($value = $coroutine->current()) instanceof \Generator) {
                 $stack->push($coroutine);
                 $coroutine = $value;
+                continue;
             }
 
             $isValue = $value instanceof Value;
@@ -119,7 +120,7 @@ class Scheduler
                 }
 
                 $coroutine = $stack->pop();
-                $coroutine->send($isValue ? $value->getValue() : null);
+                $coroutine->send($isValue ? $value->get() : null);
                 continue;
             }
 

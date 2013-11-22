@@ -3,16 +3,10 @@
 
 namespace CoroutineIO\Socket;
 
-use CoroutineIO\IO\StreamReader;
-use CoroutineIO\Scheduler\Scheduler;
-use CoroutineIO\Scheduler\SystemCall;
-use CoroutineIO\Scheduler\Task;
-use CoroutineIO\Scheduler\Value;
-
 class Socket
 {
 
-    private $socket;
+    protected $socket;
 
     /**
      * @param $socket
@@ -31,38 +25,11 @@ class Socket
     }
 
     /**
-     * @return string
-     */
-    public function getRemoteName()
-    {
-        return stream_socket_get_name($this->socket, true);
-    }
-
-    /**
-     * @return string
-     */
-    public function getLocalName()
-    {
-        return stream_socket_get_name($this->socket, false);
-    }
-
-    /**
      * @return mixed
      */
     public function getRaw()
     {
         return $this->socket;
-    }
-
-    /**
-     * @return static
-     */
-    public function accept()
-    {
-        yield new SystemCall(function(Task $task, SocketScheduler $scheduler) {
-            $scheduler->addReader(new StreamReader($this->socket), $task);
-        });
-        yield new Value(new static(stream_socket_accept($this->socket, 0)));
     }
 
     /**

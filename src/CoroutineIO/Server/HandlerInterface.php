@@ -2,8 +2,8 @@
 
 namespace CoroutineIO\Server;
 
+use CoroutineIO\IO\StreamSocket;
 use CoroutineIO\Socket\ProtectedSocket;
-use CoroutineIO\Socket\Socket;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
@@ -12,10 +12,10 @@ interface HandlerInterface
 {
 
     /**
-     * @param Socket $socket
+     * @param StreamSocket $socket
      * @return \Generator
      */
-    public function handleClient(Socket $socket);
+    public function handleClient(StreamSocket $socket);
 
     /**
      * @param string                              $input

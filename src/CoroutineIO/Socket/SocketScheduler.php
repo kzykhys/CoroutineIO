@@ -3,6 +3,7 @@
 namespace CoroutineIO\Socket;
 
 use CoroutineIO\IO\StreamReader;
+use CoroutineIO\IO\StreamSocket;
 use CoroutineIO\IO\StreamWriter;
 use CoroutineIO\Scheduler\Scheduler;
 use CoroutineIO\Scheduler\Task;
@@ -24,28 +25,28 @@ class SocketScheduler extends Scheduler
     private $writers = [];
 
     /**
-     * @param StreamReader                $reader
+     * @param StreamSocket                $socket
      * @param \CoroutineIO\Scheduler\Task $task
      */
-    public function addReader(StreamReader $reader, Task $task)
+    public function addReader(StreamSocket $socket, Task $task)
     {
-        if (!isset($this->readers[$reader->getId()])) {
-            $this->readers[$reader->getId()] = [$reader, [$task]];
+        if (!isset($this->readers[$socket->getId()])) {
+            $this->readers[$socket->getId()] = [$socket, [$task]];
         } else {
-            $this->readers[$reader->getId()][1][] = $task;
+            $this->readers[$socket->getId()][1][] = $task;
         }
     }
 
     /**
-     * @param StreamWriter                $writer
+     * @param StreamSocket                $socket
      * @param \CoroutineIO\Scheduler\Task $task
      */
-    public function addWriter(StreamWriter $writer, Task $task)
+    public function addWriter(StreamSocket $socket, Task $task)
     {
-        if (!isset($this->writers[$writer->getId()])) {
-            $this->writers[$writer->getId()] = [$writer, [$task]];
+        if (!isset($this->writers[$socket->getId()])) {
+            $this->writers[$socket->getId()] = [$socket, [$task]];
         } else {
-            $this->writers[$writer->getId()][1][] = $task;
+            $this->writers[$socket->getId()][1][] = $task;
         };
     }
 
@@ -79,17 +80,17 @@ class SocketScheduler extends Scheduler
      */
     protected function doPoll($timeout)
     {
-        /* @var StreamReader[] $reader */
-        /* @var StreamWriter[] $writer */
+        /* @var StreamSocket[] $reader */
+        /* @var StreamSocket[] $writer */
 
         $r = [];
         foreach ($this->readers as $reader) {
-            $r[] = $reader[0]->getSocket()->getRaw();
+            $r[] = $reader[0]->getRaw();
         }
 
         $w = [];
         foreach ($this->writers as $writer) {
-            $w[] = $writer[0]->getSocket()->getRaw();
+            $w[] = $writer[0]->getRaw();
         }
 
         $e = [];
