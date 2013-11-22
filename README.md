@@ -26,7 +26,9 @@ Create or update your composer.json and run `composer update`
 Example (HTTP Server)
 ---------------------
 
-Run `php example.php` and open `http://localhost:8000`
+1. Run `php example.php`
+2. Open `http://localhost:8000` in browser and hold down the F5 key
+3. Watch the console output
 
 ```
 php example.php
