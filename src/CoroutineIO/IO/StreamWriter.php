@@ -30,7 +30,8 @@ class StreamWriter extends Stream
      */
     public function write($buffer)
     {
-        return $this->socket->write($buffer);
+        yield $this->wait();
+        $this->socket->write($buffer);
     }
 
 }

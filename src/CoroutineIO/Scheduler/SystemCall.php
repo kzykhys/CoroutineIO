@@ -27,6 +27,19 @@ class SystemCall
     }
 
     /**
+     * @param $taskId
+     *
+     * @return static
+     */
+    public static function kill($taskId)
+    {
+        return new static(function (Task $task, Scheduler $scheduler) use ($taskId) {
+            $task->setValue($scheduler->kill($taskId));
+            $scheduler->schedule($task);
+        });
+    }
+
+    /**
      * @param callable $callback
      */
     public function __construct(callable $callback)

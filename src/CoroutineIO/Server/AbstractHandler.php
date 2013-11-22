@@ -21,15 +21,14 @@ abstract class AbstractHandler implements HandlerInterface
     public function handleClient(Socket $socket)
     {
         $reader = new StreamReader($socket);
-        yield $reader->wait();
+        $data   = (yield $reader->read());
 
-        $response = $this->handleRequest($reader->read(), new ProtectedSocket($socket));
+        $response = $this->handleRequest($data, new ProtectedSocket($socket));
 
         $writer = new StreamWriter($socket);
-        yield $writer->wait();
 
-        $writer->write($response);
-        $socket->close();
+        yield $writer->write($response);
+        yield $socket->close();
     }
 
 }

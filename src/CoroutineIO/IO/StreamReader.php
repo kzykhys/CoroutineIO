@@ -5,6 +5,7 @@ namespace CoroutineIO\IO;
 
 use CoroutineIO\Scheduler\SystemCall;
 use CoroutineIO\Scheduler\Task;
+use CoroutineIO\Scheduler\Value;
 use CoroutineIO\Socket\SocketScheduler;
 
 /**
@@ -28,7 +29,8 @@ class StreamReader extends Stream
      */
     public function read()
     {
-        return $this->socket->read(8048);
+        yield $this->wait();
+        yield new Value($this->socket->read(8048));
     }
 
 } 

@@ -39,7 +39,7 @@ class Scheduler
     public function add(\Generator $coroutine)
     {
         $id = ++$this->sequence;
-        $task = new Task($id, $coroutine);
+        $task = new Task($id, $this->generateStack($coroutine));
         $this->tasks[$id] = $task;
         $this->schedule($task);
 
@@ -73,6 +73,57 @@ class Scheduler
             } else {
                 $this->schedule($task);
             }
+        }
+    }
+
+    /**
+     * @param $id
+     *
+     * @return bool
+     */
+    public function kill($id)
+    {
+        if (!isset($this->tasks[$id])) {
+            return false;
+        }
+
+        foreach ($this->queue as $i => $task) {
+            if ($task->getId() === $id) {
+                unset($this->queue[$i]);
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param \Generator $coroutine
+     *
+     * @return \Generator
+     */
+    public function generateStack(\Generator $coroutine)
+    {
+        $stack = new \SplStack();
+
+        while (true) {
+            if (($value = $coroutine->current()) instanceof \Generator) {
+                $stack->push($coroutine);
+                $coroutine = $value;
+            }
+
+            $isValue = $value instanceof Value;
+            if (!$coroutine->valid() || $isValue) {
+                if ($stack->isEmpty()) {
+                    return;
+                }
+
+                $coroutine = $stack->pop();
+                $coroutine->send($isValue ? $value->getValue() : null);
+                continue;
+            }
+
+            $coroutine->send(yield $coroutine->key() => $value);
         }
     }
 

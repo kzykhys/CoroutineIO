@@ -3,6 +3,12 @@
 
 namespace CoroutineIO\Socket;
 
+use CoroutineIO\IO\StreamReader;
+use CoroutineIO\Scheduler\Scheduler;
+use CoroutineIO\Scheduler\SystemCall;
+use CoroutineIO\Scheduler\Task;
+use CoroutineIO\Scheduler\Value;
+
 class Socket
 {
 
@@ -53,7 +59,10 @@ class Socket
      */
     public function accept()
     {
-        return new static(stream_socket_accept($this->socket, 0));
+        yield new SystemCall(function(Task $task, SocketScheduler $scheduler) {
+            $scheduler->addReader(new StreamReader($this->socket), $task);
+        });
+        yield new Value(new static(stream_socket_accept($this->socket, 0)));
     }
 
     /**

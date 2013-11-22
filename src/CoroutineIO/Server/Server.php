@@ -5,6 +5,7 @@ namespace CoroutineIO\Server;
 use CoroutineIO\Exception\Exception;
 use CoroutineIO\IO\StreamReader;
 use CoroutineIO\Scheduler\SystemCall;
+use CoroutineIO\Scheduler\Value;
 use CoroutineIO\Socket\Socket;
 use CoroutineIO\Socket\SocketScheduler;
 
@@ -49,10 +50,9 @@ abstract class Server
         $socket = new Socket($this->createSocket($address));
 
         while (true) {
-            $reader = new StreamReader($socket);
-            yield $reader->wait();
-            $client = $socket->accept();
-            yield SystemCall::create($this->handler->handleClient($client));
+            yield SystemCall::create(
+                $this->handler->handleClient(yield (new Value($socket->accept())))
+            );
         }
     }
 
