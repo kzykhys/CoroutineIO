@@ -1,7 +1,8 @@
 CoroutineIO
 ===========
 
-Fast socket server implementation using *Generator*
+Fast socket server implementation using *Generator*.
+
 This project is heavily inspired by @nikic's [great post][1].
 
 Requirements
