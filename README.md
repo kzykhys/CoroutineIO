@@ -1,7 +1,8 @@
 CoroutineIO
 ===========
 
-Coroutine based generic TCP server written in PHP5.5. This project is heavily inspired by @nikic's [great post][1].
+Coroutine based generic stream socket server written in PHP5.5.
+This project is heavily inspired by @nikic's [great post][1].
 
 Requirements
 ------------
@@ -30,6 +31,18 @@ Run `php example.php` and open `http://localhost:8000`
 php example.php
 ```
 
+```
+::1:50531
+GET / HTTP/1.1
+Host: localhost:8000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:25.0) Gecko/20100101 Firefox/25.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: ja,en-us;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+DNT: 1
+Connection: keep-alive
+```
+
 ### example.php
 
 ``` php
@@ -49,7 +62,6 @@ $server->run();
 ``` php
 <?php
 
-
 namespace CoroutineIO\Example;
 
 use CoroutineIO\Exception\Exception;
@@ -57,18 +69,12 @@ use CoroutineIO\Server\Server;
 
 /**
  * Simple HTTP Server Implementation
- *
- * @author Kazuyuki Hayashi <hayashi@valnur.net>
  */
 class HttpServer extends Server
 {
 
     /**
-     * @param string $address example: localhost:8000
-     *
-     * @throws Exception
-     *
-     * @return resource
+     * {@inheritdoc}
      */
     public function createSocket($address = 'localhost:8000')
     {
@@ -97,8 +103,6 @@ use CoroutineIO\Socket\ProtectedSocket;
 
 /**
  * Simple HTTP Server Implementation
- *
- * @author Kazuyuki Hayashi <hayashi@valnur.net>
  */
 class HttpHandler extends AbstractHandler
 {
@@ -108,10 +112,13 @@ class HttpHandler extends AbstractHandler
      */
     public function handleRequest($input, ProtectedSocket $socket)
     {
-        // Displays request information
+        // "127.0.0.1:12345", "::1:50176", ...
         echo $socket->getRemoteName() . "\n";
+
+        // Displays request header and body
         echo $input;
 
+        // Useless server :)
         return "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 5\n\nHello";
     }
 
