@@ -2,9 +2,7 @@
 
 namespace CoroutineIO\Socket;
 
-use CoroutineIO\IO\StreamReader;
 use CoroutineIO\IO\StreamSocket;
-use CoroutineIO\IO\StreamWriter;
 use CoroutineIO\Scheduler\Scheduler;
 use CoroutineIO\Scheduler\Task;
 

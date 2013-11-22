@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CoroutineIO\IO;
 
 use CoroutineIO\Scheduler\SystemCall;

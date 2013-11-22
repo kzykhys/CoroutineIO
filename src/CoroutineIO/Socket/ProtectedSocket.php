@@ -1,8 +1,10 @@
 <?php
 
-
 namespace CoroutineIO\Socket;
 
+/**
+ * @author Kazuyuki Hayashi <hayashi@valnur.net>
+ */
 class ProtectedSocket
 {
 
