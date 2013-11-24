@@ -1,4 +1,15 @@
 {
+    "name": "kzykhys/coroutine-io",
+    "description": "Fast socket server implementation using *Generator*",
+    "license": "MIT",
+    "keywords": ["server", "socket", "tcp", "udp", "coroutine", "multitasking"],
+    "authors": [
+        {
+            "name": "Kazuyuki Hayashi",
+            "email": "hayashi@valnur.net"
+        }
+    ],
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.5.0"
     },
