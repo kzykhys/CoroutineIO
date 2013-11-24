@@ -2,8 +2,8 @@
 
 namespace CoroutineIO\Server;
 
+use CoroutineIO\IO\ProtectedStreamSocket;
 use CoroutineIO\IO\StreamSocket;
-use CoroutineIO\Socket\ProtectedSocket;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
@@ -19,10 +19,10 @@ interface HandlerInterface
 
     /**
      * @param string                              $input
-     * @param ProtectedSocket $socket
+     * @param ProtectedStreamSocket $socket
      *
      * @return mixed
      */
-    public function handleRequest($input, ProtectedSocket $socket);
+    public function handleRequest($input, ProtectedStreamSocket $socket);
 
 }

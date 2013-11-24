@@ -2,8 +2,8 @@
 
 namespace CoroutineIO\Example;
 
+use CoroutineIO\IO\ProtectedStreamSocket;
 use CoroutineIO\Server\AbstractHandler;
-use CoroutineIO\Socket\ProtectedSocket;
 
 /**
  * Simple HTTP Server Implementation
@@ -16,7 +16,7 @@ class HttpHandler extends AbstractHandler
     /**
      * {@inheritdoc}
      */
-    public function handleRequest($input, ProtectedSocket $socket)
+    public function handleRequest($input, ProtectedStreamSocket $socket)
     {
         // Displays request information
         echo $socket->getRemoteName() . "\n";

@@ -11,7 +11,7 @@ class ProtectedSocket
     /**
      * @var Socket
      */
-    private $socket;
+    protected $socket;
 
     /**
      * @param Socket $socket
@@ -29,20 +29,5 @@ class ProtectedSocket
         return $this->socket->getId();
     }
 
-    /**
-     * @return string
-     */
-    public function getRemoteName()
-    {
-        return $this->socket->getRemoteName();
-    }
-
-    /**
-     * @return string
-     */
-    public function getLocalName()
-    {
-        return $this->socket->getLocalName();
-    }
 
 } 
