@@ -2,8 +2,8 @@
 
 namespace CoroutineIO\Server;
 
-use CoroutineIO\IO\ProtectedStreamSocket;
-use CoroutineIO\IO\StreamSocket;
+use CoroutineIO\Socket\ProtectedStreamSocket;
+use CoroutineIO\Socket\StreamSocket;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>

@@ -3,9 +3,9 @@
 namespace CoroutineIO\Server;
 
 use CoroutineIO\Exception\Exception;
-use CoroutineIO\IO\StreamSocket;
 use CoroutineIO\Scheduler\SystemCall;
 use CoroutineIO\Socket\SocketScheduler;
+use CoroutineIO\Socket\StreamSocket;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
@@ -16,7 +16,7 @@ abstract class Server
     /**
      * @var HandlerInterface
      */
-    private $handler;
+    protected $handler;
 
     /**
      * @param HandlerInterface $handler
@@ -40,6 +40,7 @@ abstract class Server
 
     /**
      * @param string $address
+     *
      * @throws \Exception
      * @return \Generator
      */

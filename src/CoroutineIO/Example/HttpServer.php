@@ -9,6 +9,8 @@ use CoroutineIO\Server\Server;
  * Simple HTTP Server Implementation
  *
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
+ *
+ * @codeCoverageIgnore
  */
 class HttpServer extends Server
 {

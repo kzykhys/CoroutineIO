@@ -2,13 +2,15 @@
 
 namespace CoroutineIO\Example;
 
-use CoroutineIO\IO\ProtectedStreamSocket;
+use CoroutineIO\Socket\ProtectedStreamSocket;
 use CoroutineIO\Server\AbstractHandler;
 
 /**
  * Simple HTTP Server Implementation
  *
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
+ *
+ * @codeCoverageIgnore
  */
 class HttpHandler extends AbstractHandler
 {

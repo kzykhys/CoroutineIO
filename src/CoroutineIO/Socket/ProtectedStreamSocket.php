@@ -1,10 +1,6 @@
 <?php
 
-
-namespace CoroutineIO\IO;
-
-
-use CoroutineIO\Socket\ProtectedSocket;
+namespace CoroutineIO\Socket;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>

@@ -1,12 +1,10 @@
 <?php
 
-namespace CoroutineIO\IO;
+namespace CoroutineIO\Socket;
 
 use CoroutineIO\Scheduler\SystemCall;
 use CoroutineIO\Scheduler\Task;
 use CoroutineIO\Scheduler\Value;
-use CoroutineIO\Socket\Socket;
-use CoroutineIO\Socket\SocketScheduler;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>

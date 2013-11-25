@@ -2,7 +2,6 @@
 
 namespace CoroutineIO\Socket;
 
-use CoroutineIO\IO\StreamSocket;
 use CoroutineIO\Scheduler\Scheduler;
 use CoroutineIO\Scheduler\Task;
 
