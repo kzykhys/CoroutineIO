@@ -26,4 +26,12 @@ abstract class AbstractHandler implements HandlerInterface
         yield $socket->close();
     }
 
+    /**
+     * @param string                $input
+     * @param ProtectedStreamSocket $socket
+     *
+     * @return string
+     */
+    abstract public function handleRequest($input, ProtectedStreamSocket $socket);
+
 }

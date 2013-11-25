@@ -2,7 +2,6 @@
 
 namespace CoroutineIO\Server;
 
-use CoroutineIO\Exception\Exception;
 use CoroutineIO\Scheduler\SystemCall;
 use CoroutineIO\Socket\SocketScheduler;
 use CoroutineIO\Socket\StreamSocket;
@@ -10,7 +9,7 @@ use CoroutineIO\Socket\StreamSocket;
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
  */
-abstract class Server
+abstract class Server implements ServerInterface
 {
 
     /**
@@ -55,14 +54,5 @@ abstract class Server
             );
         }
     }
-
-    /**
-     * @param string $address example: localhost:8000
-     *
-     * @throws Exception
-     *
-     * @return resource
-     */
-    abstract public function createSocket($address);
 
 } 
