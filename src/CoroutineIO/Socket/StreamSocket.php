@@ -70,7 +70,7 @@ class StreamSocket extends Socket
         yield new SystemCall(function (Task $task, SocketScheduler $scheduler) {
             $scheduler->addWriter($this, $task);
         });
-        parent::write($buffer);
+        yield parent::write($buffer);
     }
 
 }
