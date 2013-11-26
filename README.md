@@ -100,27 +100,39 @@ class HttpServer extends Server
 
 namespace CoroutineIO\Example;
 
-use CoroutineIO\Server\AbstractHandler;
-use CoroutineIO\Socket\ProtectedSocket;
+use CoroutineIO\Server\HandlerInterface;
+use CoroutineIO\Socket\ProtectedStreamSocket;
+use CoroutineIO\Socket\StreamSocket;
 
 /**
  * Simple HTTP Server Implementation
  */
-class HttpHandler extends AbstractHandler
+class HttpHandler implements HandlerInterface
 {
 
     /**
      * {@inheritdoc}
      */
-    public function handleRequest($input, ProtectedSocket $socket)
+    public function handleClient(StreamSocket $socket)
     {
-        // "127.0.0.1:12345", "::1:50176", ...
-        echo $socket->getRemoteName() . "\n";
+        $socket->block(false);
+        $data = (yield $socket->read(8048));
 
-        // Displays request header and body
+        $response = $this->handleRequest($data, new ProtectedStreamSocket($socket));
+
+        yield $socket->write($response);
+        yield $socket->close();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function handleRequest($input, ProtectedStreamSocket $socket)
+    {
+        // Displays request information
+        echo $socket->getRemoteName() . "\n";
         echo $input;
 
-        // Useless server :)
         return "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 5\n\nHello";
     }
 

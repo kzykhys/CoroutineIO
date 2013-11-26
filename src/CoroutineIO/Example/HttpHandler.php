@@ -2,8 +2,9 @@
 
 namespace CoroutineIO\Example;
 
+use CoroutineIO\Server\HandlerInterface;
 use CoroutineIO\Socket\ProtectedStreamSocket;
-use CoroutineIO\Server\AbstractHandler;
+use CoroutineIO\Socket\StreamSocket;
 
 /**
  * Simple HTTP Server Implementation
@@ -12,8 +13,22 @@ use CoroutineIO\Server\AbstractHandler;
  *
  * @codeCoverageIgnore
  */
-class HttpHandler extends AbstractHandler
+class HttpHandler implements HandlerInterface
 {
+
+    /**
+     * {@inheritdoc}
+     */
+    public function handleClient(StreamSocket $socket)
+    {
+        $socket->block(false);
+        $data = (yield $socket->read(8048));
+
+        $response = $this->handleRequest($data, new ProtectedStreamSocket($socket));
+
+        yield $socket->write($response);
+        yield $socket->close();
+    }
 
     /**
      * {@inheritdoc}

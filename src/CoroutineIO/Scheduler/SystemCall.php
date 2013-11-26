@@ -40,6 +40,16 @@ class SystemCall
     }
 
     /**
+     * @return static
+     */
+    public static function shutdown()
+    {
+        return new static(function (Task $task, Scheduler $scheduler) {
+            $scheduler->shutdown();
+        });
+    }
+
+    /**
      * @param callable $callback
      */
     public function __construct(callable $callback)
