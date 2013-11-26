@@ -18,6 +18,11 @@ abstract class Server implements ServerInterface
     protected $handler;
 
     /**
+     * @var bool
+     */
+    protected $isClosed = false;
+
+    /**
      * @param HandlerInterface $handler
      */
     public function __construct(HandlerInterface $handler)
@@ -48,11 +53,21 @@ abstract class Server implements ServerInterface
         $socket = new StreamSocket($this->createSocket($address));
         $socket->block(false);
 
-        while (true) {
+        while (!$this->isClosed) {
             yield SystemCall::create(
                 $this->handler->handleClient(yield $socket->accept())
             );
         }
+
+        $socket->close();
+    }
+
+    /**
+     *
+     */
+    public function shutdown()
+    {
+        $this->isClosed = true;
     }
 
 } 

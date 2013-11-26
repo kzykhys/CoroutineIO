@@ -98,6 +98,16 @@ class Scheduler
     }
 
     /**
+     *
+     */
+    public function shutdown()
+    {
+        foreach ($this->queue as $key => $value) {
+            unset($this->queue[$key]);
+        }
+    }
+
+    /**
      * @param \Generator $coroutine
      *
      * @return \Generator
