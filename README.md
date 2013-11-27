@@ -18,7 +18,7 @@ Create or update your composer.json and run `composer update`
 ``` json
 {
     "require": {
-        "kzykhys/coroutine-io": "dev-master"
+        "kzykhys/coroutine-io": "~1.0"
     }
 }
 ```
