@@ -1,6 +1,9 @@
 CoroutineIO
 ===========
 
+[![Latest Stable Version](https://poser.pugx.org/kzykhys/coroutine-io/v/stable.png)](https://packagist.org/packages/kzykhys/coroutine-io)
+[![Build Status](https://travis-ci.org/kzykhys/CoroutineIO.png?branch=master)](https://travis-ci.org/kzykhys/CoroutineIO)
+
 Fast socket server implementation using *Generator*.
 This project is heavily inspired by @nikic's [great post][1].
 
