@@ -6,7 +6,7 @@ This project is heavily inspired by @nikic's [great post][1].
 
 Following project shows the possibility of CoroutineIO.
 
-* [kzykhys/coupe][2] - Coupé, Fast HTTP/HTTPS server for PHP developers
+* [kzykhys/coupe][2] - Coupé - A Handy HTTP/HTTPS Server written in *PURE* PHP
 
 Requirements
 ------------
