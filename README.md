@@ -2,8 +2,11 @@ CoroutineIO
 ===========
 
 Fast socket server implementation using *Generator*.
-
 This project is heavily inspired by @nikic's [great post][1].
+
+Following project shows the possibility of CoroutineIO.
+
+* [kzykhys/coupe][2] - Coupé, Fast HTTP/HTTPS server for PHP developers
 
 Requirements
 ------------
@@ -151,3 +154,4 @@ Kazuyuki Hayashi (@kzykhys)
 
 
 [1]: http://nikic.github.io/2012/12/22/Cooperative-multitasking-using-coroutines-in-PHP.html "Cooperative multitasking using coroutines (in PHP!)"
+[2]: https://github.com/kzykhys/coupe
